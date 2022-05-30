@@ -2,24 +2,33 @@ using System;
 
 namespace App
 {
+    static class Globals
+    {
+        public static IMemberCollection members; 
+        public static IMovieCollection movies;
+    }
+    
     class App
     {
         static void Main(string[] args)
         {
+
+            Globals.members = MemberCollection(100);
+            Globals.movies = MovieCollection();
             bool endApp = false;
 
             while(!endApp)
             {
-                Console.WriteLine("==============================================================\r");
-                Console.WriteLine("Welcolme to community Librart Movie DVD Management System\r");
+                Console.WriteLine("==============================================================");
+                Console.WriteLine("Welcolme to community Librart Movie DVD Management System");
                 Console.WriteLine("==============================================================\n");
 
                 // Main Menu
                 Console.WriteLine("======================= Main Menu =========================\n");
                 // Ask the user to choose an option.
-                Console.WriteLine("\t1. Staff Login");
-                Console.WriteLine("\t2. Member Login");
-                Console.WriteLine("\t0. Exit\n");
+                Console.WriteLine("\t 1. Staff Login");
+                Console.WriteLine("\t 2. Member Login");
+                Console.WriteLine("\t 0. Exit\n");
                 Console.Write("Enter your choice ==> (1/2/0)\n");
 
 
@@ -38,14 +47,11 @@ namespace App
                         endApp = true;
                         break;
                 }
-
-
-                
             }
             // Wait for the user to respond before closing.
-        Console.WriteLine(" Press any key to close the app ...");
-        Console.ReadKey();
-        return;
+            Console.WriteLine(" Press any key to close the app ...");
+            Console.ReadKey();
+            return;
         }
 
 
@@ -64,7 +70,7 @@ namespace App
 
             if (username == "staff" && password == "today123") return true;
             else {
-                Console.WriteLine("The username or password are incorrect");
+                Console.WriteLine("The username or password are incorrect\n");
                 return false;
             }
         }
@@ -104,10 +110,11 @@ namespace App
             Console.WriteLine("\t6. Display all members who are currently renting a particular movie");
             Console.WriteLine("\t0. Return to the main menu\n");
             Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
+            /*
             Switch (Console.ReadLine())
             {
                 case "1":
-                    Console.WriteLine();
+                    //Console.WriteLine();
                     StaffSystem.AddDVDs();
                 case "2":
                 case "3":
@@ -116,6 +123,7 @@ namespace App
                 case "6":
                 case "0":
             }
+            */
         }
 
         public static void DisplayMemberMenu()
@@ -146,9 +154,21 @@ namespace App
     class StaffSystem
     {
         
-        public void AddDVDs()
+        public void AddDVDs(string movie)
         {
-            //TODO
+            Imovie movieReference = Globals.movies.Search(movie);
+            if (movieReference!=null) //the movie is not new
+            {
+                Console.WriteLine("How many DVDs do you want to add ?");
+                int newDVDs = Convert.ToInt32(Console.ReadLine());
+                movieReference.AvailableCopies += newDVDs;
+                movieReference.TotalCopies += newDVDs;
+            } else { //the movie is new we need to register the movie in the system 
+                Console.WriteLine("Enter the title of the movie");
+                title = Console.ReadLine();
+                
+                title genre classification duration 
+            }
         }
 
         public void RemoveDVDs()
