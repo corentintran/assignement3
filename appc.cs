@@ -28,11 +28,11 @@ namespace App
                 {
                     case "1":
                         // Staff Menu
-                        if (Menu.StaffLogin()) Menu.DisplayStaffMenu();
+                        if (StaffLogin()) DisplayStaffMenu();
                         break;
                     case "2":
                         // Member Menu
-                        if (Menu.MemberLogin()) Menu.DisplayMemberMenu();
+                        if (MemberLogin()) DisplayMemberMenu();
                         break;
                     case "0":
                         endApp = true;
@@ -96,7 +96,7 @@ namespace App
         {
             Console.WriteLine("======================= Staff Menu =========================\n");
             // Ask the user to choose an option.
-            Console.WriteLine("\t1. Add new DVDs of a new movie to the system");
+            Console.WriteLine("\t1. Add new DVDs of a movie to the system");
             Console.WriteLine("\t2. Remove DVDs of a movie from the system");
             Console.WriteLine("\t3. Register a new member to the system");
             Console.WriteLine("\t4. Remove a registered member from the system");
@@ -104,16 +104,18 @@ namespace App
             Console.WriteLine("\t6. Display all members who are currently renting a particular movie");
             Console.WriteLine("\t0. Return to the main menu\n");
             Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
-            /*Switch (Console.ReadLine())
+            Switch (Console.ReadLine())
             {
                 case "1":
+                    Console.WriteLine();
+                    StaffSystem.AddDVDs();
                 case "2":
                 case "3":
                 case "4":
                 case "5":
                 case "6":
                 case "0":
-            }*/
+            }
         }
 
         public static void DisplayMemberMenu()
@@ -210,12 +212,12 @@ namespace App
 
         public string ListMoviesBorrowed()
         {
-            list = "";
+            string list = "";
             //TODO
             return list;
         }
 
-        public string Display top3()
+        public string DisplayTop3()
         {
             string top3 = "";
             //TODO
