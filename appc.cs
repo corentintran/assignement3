@@ -110,20 +110,27 @@ namespace App
             Console.WriteLine("\t6. Display all members who are currently renting a particular movie");
             Console.WriteLine("\t0. Return to the main menu\n");
             Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
-            /*
+            
             Switch (Console.ReadLine())
             {
                 case "1":
-                    //Console.WriteLine();
-                    StaffSystem.AddDVDs();
+                    Console.WriteLine("Enter the title of the movie:");
+                    StaffSystem.AddDVDs(Console.ReadLine());
                 case "2":
+                    Console.WriteLine("Enter the title of the movie:");
+                    StaffSystem.RemoveDVDs(Console.ReadLine());
                 case "3":
+                    StaffSystem.RegisterNewMember();
                 case "4":
+                    StaffSystem.RemoveMember()
                 case "5":
+                    Console.WriteLine("The contact number of the member is :" + StaffSystem.DisplayPhoneNumber());
                 case "6":
+                    Console.WriteLine("Enter the title of the movie:");
+                    Console.WriteLine(StaffSystem.DisplayMembers(Console.ReadLine()));
                 case "0":
             }
-            */
+            
         }
 
         public static void DisplayMemberMenu()
@@ -154,31 +161,107 @@ namespace App
     class StaffSystem
     {
         
-        public void AddDVDs(string movie)
+        public void AddDVDs(string movie_title)
         {
-            Imovie movieReference = Globals.movies.Search(movie);
-            if (movieReference!=null) //the movie is not new
+            //Search is the movie is new or not
+            Imovie movie_reference = Globals.movies.Search(movie_title);
+            if (movie_reference!=null) //the movie is not new
             {
+                //Add the new DVDs
                 Console.WriteLine("How many DVDs do you want to add ?");
                 int newDVDs = Convert.ToInt32(Console.ReadLine());
-                movieReference.AvailableCopies += newDVDs;
-                movieReference.TotalCopies += newDVDs;
-            } else { //the movie is new we need to register the movie in the system 
-                Console.WriteLine("Enter the title of the movie");
-                title = Console.ReadLine();
-                
-                title genre classification duration 
+                movie_reference.AvailableCopies += newDVDs;
+                movie_reference.TotalCopies += newDVDs;
+
+            } else { //the movie is new, we need to register the movie in the system
+                //Ask the user to fill the imformations about the movie
+                Console.WriteLine("The movie is new, please enter the informations about the movie") ;
+                IMovie new_movie = Movie(movie);
+                Console.WriteLine("Enter the genre of the movie:");//genre
+                new_movie.Genre = Console.ReadLine();
+                Console.WriteLine("Enter the classification of the movie:");//classification
+                new_movie.Classification = Console.ReadLine();
+                Console.WriteLine("Enter the duration of the movie:");//duration
+                new_movie.Duration = Convert.ToInt32(Console.ReadLine());
+
+                //Add the new DVDs
+                Console.WriteLine("How many DVDs do you want to add ?");
+                int newDVDs = Convert.ToInt32(Console.ReadLine());
+                movie_reference.AvailableCopies += newDVDs;
+                movie_reference.TotalCopies += newDVDs;
+
+                //Add the new movie in the movie Collection
+                if (Globals.movies.Insert(new_movie)) Console.WriteLine("The movie has been added to the collection!");
+                else Console.WriteLine("The movie cannot be add to the collection, please try again");
             }
         }
 
-        public void RemoveDVDs()
+        public void RemoveDVDs(string movie_title)
         {
-            //TODO
+            //Search is the movie is in the collection
+            Imovie movie_reference = Globals.movies.Search(movie_title);
+            if (movie_reference!=null) //the movie is not new
+            {
+                
+                Console.WriteLine("How many DVDs do you want to remove?");
+                int DVDs_to_remove = Convert.ToInt32(Console.ReadLine());
+                if (DVDs_to_remove>movie_reference.TotalCopies)
+                //no more DVDs, we remove the movie from the collection
+                {
+                    if (Globals.movies.Delete(movie_reference))
+                    {
+                        Console.WriteLine("All the DVDs of this movie have been removed, this movie has been removed from the collection");
+                    }
+                } else //Remove the new DVDs
+                {
+                    movie_reference.AvailableCopies -= DVDs_to_remove;
+                    movie_reference.TotalCopies -= DVDs_to_remove;
+                }
+                
+
+            } else { //the movie is not in the collection
+                Console.WriteLine("The movie is not in the collection, please verify the title and try again") ;
+            }
         }
 
         public void RegisterNewMember()
         {
-            //TODO
+            string first_name, last_name;
+            Console.WriteLine("Please enter the following informations about the new member:");
+            // fill first name
+            Console.WriteLine("First name:");
+            first_name = Console.ReadLine();
+            //fill last name
+            Console.WriteLine("Last name:");
+            last_name = Console.ReadLine();
+            IMember new_member = new Member(first_name, last_name);
+            //check if the member is new or not
+            if (Globals.members.Search(new_member)) Console.WriteLine("The member is already registered!");
+            else //the member is new, we add him in the collection
+            {
+                string contact_number, psw;
+                // fill contact number
+                Console.WriteLine("Contact Number:");
+                contact_number = Console.ReadLine();
+                while(!IMember.IsValidContactNumber()) //check if the contact number is valid
+                {
+                    Console.WriteLine("The contact number is not valid, please enter a valid contact number:");
+                    contact_number = Console.ReadLine();
+                }
+                // fill password
+                Console.WriteLine("Password:");
+                psw = Console.ReadLine();
+                while(!IMember.IsValidPin()) //check if the password is valid
+                {
+                    Console.WriteLine("The password is not valid, please enter a valid password:");
+                    psw = Console.ReadLine();
+                }
+
+                new_member.ContactNumber = contact_number;
+                new_member.Pin = psw;
+                //Add the member in the collection
+                Globals.members.Add(new_member)
+            }
         }
 
         public bool RemoveMember()
