@@ -13,8 +13,8 @@ namespace App
         static void Main(string[] args)
         {
 
-            Globals.members = MemberCollection(100);
-            Globals.movies = MovieCollection();
+            Globals.members = new MemberCollection(100);
+            Globals.movies = new MovieCollection();
             bool endApp = false;
 
             while(!endApp)
@@ -100,61 +100,80 @@ namespace App
         */
         public static void DisplayStaffMenu()
         {
-            Console.WriteLine("======================= Staff Menu =========================\n");
-            // Ask the user to choose an option.
-            Console.WriteLine("\t1. Add new DVDs of a movie to the system");
-            Console.WriteLine("\t2. Remove DVDs of a movie from the system");
-            Console.WriteLine("\t3. Register a new member to the system");
-            Console.WriteLine("\t4. Remove a registered member from the system");
-            Console.WriteLine("\t5. Display a member's contact phone number, given the member's name");
-            Console.WriteLine("\t6. Display all members who are currently renting a particular movie");
-            Console.WriteLine("\t0. Return to the main menu\n");
-            Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
-            
-            Switch (Console.ReadLine())
-            {
-                case "1":
-                    Console.WriteLine("Enter the title of the movie:");
-                    StaffSystem.AddDVDs(Console.ReadLine());
-                case "2":
-                    Console.WriteLine("Enter the title of the movie:");
-                    StaffSystem.RemoveDVDs(Console.ReadLine());
-                case "3":
-                    StaffSystem.RegisterNewMember();
-                case "4":
-                    StaffSystem.RemoveMember()
-                case "5":
-                    Console.WriteLine("The contact number of the member is :" + StaffSystem.DisplayPhoneNumber());
-                case "6":
-                    Console.WriteLine("Enter the title of the movie:");
-                    Console.WriteLine(StaffSystem.DisplayMembers(Console.ReadLine()));
-                case "0":
+
+            bool backHome = false;
+
+            while(!backHome){
+                StaffSystem staffSystem = new StaffSystem();
+                Console.WriteLine("======================= Staff Menu =========================\n");
+                // Ask the user to choose an option.
+                Console.WriteLine("\t1. Add new DVDs of a movie to the system");
+                Console.WriteLine("\t2. Remove DVDs of a movie from the system");
+                Console.WriteLine("\t3. Register a new member to the system");
+                Console.WriteLine("\t4. Remove a registered member from the system");
+                Console.WriteLine("\t5. Display a member's contact phone number, given the member's name");
+                Console.WriteLine("\t6. Display all members who are currently renting a particular movie");
+                Console.WriteLine("\t0. Return to the main menu\n");
+                Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
+                
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        Console.WriteLine("Enter the title of the movie:");
+                        staffSystem.AddDVDs(Console.ReadLine());
+                        break;
+                    case "2":
+                        Console.WriteLine("Enter the title of the movie:");
+                        staffSystem.RemoveDVDs(Console.ReadLine());
+                        break;
+                    case "3":
+                        staffSystem.RegisterNewMember();
+                        break;
+                    case "4":
+                        staffSystem.RemoveMember();
+                        break;
+                    case "5":
+                        Console.WriteLine("The contact number of the member is :" + staffSystem.DisplayPhoneNumber());
+                        break;
+                    case "6":
+                        Console.WriteLine("Enter the title of the movie:");
+                        Console.WriteLine(staffSystem.DisplayMembers(Console.ReadLine()));
+                        break;
+                    case "0":
+                        backHome = true;
+                        break;
+                }
             }
             
         }
 
         public static void DisplayMemberMenu()
         {
-            Console.WriteLine("======================= Member Menu =========================\n");
-            // Ask the user to choose an option.
-            Console.WriteLine("\t1. Browse all the movies");
-            Console.WriteLine("\t2. Display all informations about a movie, given the title of the movie");
-            Console.WriteLine("\t3. Borrow a movie DVD");
-            Console.WriteLine("\t4. Return a movie DVD");
-            Console.WriteLine("\t5. List current borrowing movies");
-            Console.WriteLine("\t6. Display the top 3 movies rented by the members");
-            Console.WriteLine("\t0. Return to the main menu\n");
-            Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
-            /*Switch (Console.ReadLine())
-            {
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                case "6":
-                case "0":
-            }*/
+            bool backHome = false;
+
+            while(!backHome){
+
+                Console.WriteLine("======================= Member Menu =========================\n");
+                // Ask the user to choose an option.
+                Console.WriteLine("\t1. Browse all the movies");
+                Console.WriteLine("\t2. Display all informations about a movie, given the title of the movie");
+                Console.WriteLine("\t3. Borrow a movie DVD");
+                Console.WriteLine("\t4. Return a movie DVD");
+                Console.WriteLine("\t5. List current borrowing movies");
+                Console.WriteLine("\t6. Display the top 3 movies rented by the members");
+                Console.WriteLine("\t0. Return to the main menu\n");
+                Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
+                /*switch (Console.ReadLine())
+                {
+                    case "1":
+                    case "2":
+                    case "3":
+                    case "4":
+                    case "5":
+                    case "6":
+                    case "0":
+                }*/
+            }
         }
     }
 
@@ -164,7 +183,7 @@ namespace App
         public void AddDVDs(string movie_title)
         {
             //Search is the movie is new or not
-            Imovie movie_reference = Globals.movies.Search(movie_title);
+            IMovie movie_reference = Globals.movies.Search(movie_title);
             if (movie_reference!=null) //the movie is not new
             {
                 //Add the new DVDs
@@ -176,7 +195,7 @@ namespace App
             } else { //the movie is new, we need to register the movie in the system
                 //Ask the user to fill the imformations about the movie
                 Console.WriteLine("The movie is new, please enter the informations about the movie") ;
-                IMovie new_movie = Movie(movie);
+                IMovie new_movie = new Movie(movie_title);
                 Console.WriteLine("Enter the genre of the movie:");//genre
                 new_movie.Genre = Console.ReadLine();
                 Console.WriteLine("Enter the classification of the movie:");//classification
@@ -199,7 +218,7 @@ namespace App
         public void RemoveDVDs(string movie_title)
         {
             //Search is the movie is in the collection
-            Imovie movie_reference = Globals.movies.Search(movie_title);
+            IMovie movie_reference = Globals.movies.Search(movie_title);
             if (movie_reference!=null) //the movie is not new
             {
                 
@@ -243,7 +262,7 @@ namespace App
                 // fill contact number
                 Console.WriteLine("Contact Number:");
                 contact_number = Console.ReadLine();
-                while(!IMember.IsValidContactNumber()) //check if the contact number is valid
+                while(!IMember.IsValidContactNumber(contact_number)) //check if the contact number is valid
                 {
                     Console.WriteLine("The contact number is not valid, please enter a valid contact number:");
                     contact_number = Console.ReadLine();
@@ -251,7 +270,7 @@ namespace App
                 // fill password
                 Console.WriteLine("Password:");
                 psw = Console.ReadLine();
-                while(!IMember.IsValidPin()) //check if the password is valid
+                while(!IMember.IsValidPin(psw)) //check if the password is valid
                 {
                     Console.WriteLine("The password is not valid, please enter a valid password:");
                     psw = Console.ReadLine();
@@ -260,7 +279,7 @@ namespace App
                 new_member.ContactNumber = contact_number;
                 new_member.Pin = psw;
                 //Add the member in the collection
-                Globals.members.Add(new_member)
+                Globals.members.Add(new_member);
             }
         }
 
@@ -277,7 +296,7 @@ namespace App
             return phonenumber;
         }
         
-        public string DisplayMembers()
+        public string DisplayMembers(string movie_title)
         {
             string members = "";
             //TODO
