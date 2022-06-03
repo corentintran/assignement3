@@ -4,8 +4,8 @@ namespace App
 {
     static class Globals
     {
-        public static IMemberCollection members; 
-        public static IMovieCollection movies;
+        public static IMemberCollection allMembers; 
+        public static IMovieCollection allMovies;
     }
     
     class App
@@ -13,8 +13,8 @@ namespace App
         static void Main(string[] args)
         {
 
-            Globals.members = new MemberCollection(100);
-            Globals.movies = new MovieCollection();
+            Globals.allMembers = new MemberCollection(100);
+            Globals.allMovies = new MovieCollection();
             bool endApp = false;
 
             while(!endApp)
@@ -127,10 +127,10 @@ namespace App
                         staffMenu.RemoveDVDs(Console.ReadLine());
                         break;
                     case "3":
-                        staffMenu.RegisterNewMember();
+                        if (staffMenu.RegisterNewMember()) Console.WriteLine("The member has been registered successfully!");
                         break;
                     case "4":
-                        staffMenu.RemoveMember();
+                        if (staffMenu.RemoveMember()) Console.WriteLine("The member has been removed successfully!");
                         break;
                     case "5":
                         Console.WriteLine("The contact number of the member is :" + staffMenu.DisplayPhoneNumber());

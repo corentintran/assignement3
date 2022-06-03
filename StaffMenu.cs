@@ -6,7 +6,7 @@ class StaffMenu
         public void AddDVDs(string movie_title)
         {
             //Search is the movie is new or not
-            IMovie movie_reference = Globals.movies.Search(movie_title);
+            IMovie movie_reference = Globals.allMovies.Search(movie_title);
             if (movie_reference!=null) //the movie is not new
             {
                 //Add the new DVDs
@@ -20,20 +20,31 @@ class StaffMenu
                 Console.WriteLine("The movie is new, please enter the informations about the movie") ;
                 IMovie new_movie = new Movie(movie_title);
                 Console.WriteLine("Enter the genre of the movie:");//genre
-                new_movie.Genre = Console.ReadLine();
+                Console.WriteLine("\t1. Action");
+                Console.WriteLine("\t2. Comedy");
+                Console.WriteLine("\t3. History");
+                Console.WriteLine("\t4. Drama");
+                Console.WriteLine("\t5. Western");
+                Console.WriteLine("Enter your choice ==> 1/2/3/4/5");
+                new_movie.Genre = (MovieGenre)Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Enter the classification of the movie:");//classification
-                new_movie.Classification = Console.ReadLine();
+                Console.WriteLine("\t1. G");
+                Console.WriteLine("\t2. PG");
+                Console.WriteLine("\t3. M");
+                Console.WriteLine("\t4. M15Plus");
+                Console.WriteLine("Enter your choice ==> 1/2/3/4");
+                new_movie.Classification = (MovieClassification)Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Enter the duration of the movie:");//duration
                 new_movie.Duration = Convert.ToInt32(Console.ReadLine());
 
                 //Add the new DVDs
                 Console.WriteLine("How many DVDs do you want to add ?");
                 int newDVDs = Convert.ToInt32(Console.ReadLine());
-                movie_reference.AvailableCopies += newDVDs;
-                movie_reference.TotalCopies += newDVDs;
+                new_movie.AvailableCopies = newDVDs;
+                new_movie.TotalCopies = newDVDs;
 
                 //Add the new movie in the movie Collection
-                if (Globals.movies.Insert(new_movie)) Console.WriteLine("The movie has been added to the collection!");
+                if (Globals.allMovies.Insert(new_movie)) Console.WriteLine("The movie has been added to the collection!");
                 else Console.WriteLine("The movie cannot be add to the collection, please try again");
             }
         }
@@ -41,7 +52,7 @@ class StaffMenu
         public void RemoveDVDs(string movie_title)
         {
             //Search is the movie is in the collection
-            IMovie movie_reference = Globals.movies.Search(movie_title);
+            IMovie movie_reference = Globals.allMovies.Search(movie_title);
             if (movie_reference!=null) //the movie is not new
             {
                 
@@ -50,7 +61,7 @@ class StaffMenu
                 if (DVDs_to_remove>movie_reference.TotalCopies)
                 //no more DVDs, we remove the movie from the collection
                 {
-                    if (Globals.movies.Delete(movie_reference))
+                    if (Globals.allMovies.Delete(movie_reference))
                     {
                         Console.WriteLine("All the DVDs of this movie have been removed, this movie has been removed from the collection");
                     }
@@ -66,7 +77,7 @@ class StaffMenu
             }
         }
 
-        public void RegisterNewMember()
+        public bool RegisterNewMember()
         {
             string first_name, last_name;
             Console.WriteLine("Please enter the following informations about the new member:");
@@ -78,7 +89,10 @@ class StaffMenu
             last_name = Console.ReadLine();
             IMember new_member = new Member(first_name, last_name);
             //check if the member is new or not
-            if (Globals.members.Search(new_member)) Console.WriteLine("The member is already registered!");
+            if (Globals.allMembers.Search(new_member)) {
+                Console.WriteLine("The member is already registered!");
+                return false;
+            }
             else //the member is new, we add him in the collection
             {
                 string contact_number, psw;
@@ -102,7 +116,8 @@ class StaffMenu
                 new_member.ContactNumber = contact_number;
                 new_member.Pin = psw;
                 //Add the member in the collection
-                Globals.members.Add(new_member);
+                Globals.allMembers.Add(new_member);
+                return true;
             }
         }
 
@@ -116,19 +131,21 @@ class StaffMenu
             last_name = Console.ReadLine();
             IMember member_to_remove = new Member(first_name, last_name);
 
-            for IMovie m in Globals.movies {
-                if (m.Borrowers.Search(member_to_remove)) { //the member has a movie DVD on loan
-                    Console.WriteLine("The member has a movie DVD on loan and cannot be removed");
-                    return false;
-                }
-            }
-            
-            //remove the member from the memberCollection
-            Globals.members.Delete(member_to_remove);
+/*     //TODO: implement a new property in Member class : a IMovieCollection named borrowedMovies,
+       //of the movies borrowed by the member
+
+            if (member_to_remove.BorrowedMovies.IsEmpty())
+            {
+                //remove the member from the memberCollection
+                Globals.allMembers.Delete(member_to_remove);
+                return true;
+            } else return false;
+            */
             return true;
         }
+        
 
-        public string DisplayPhoneNumber()
+        public string DisplayPhoneNumber()//We need to implement the Imember Find() in Member class first
         {
             string phonenumber = "";
             //TODO
@@ -137,11 +154,11 @@ class StaffMenu
         
         public string DisplayMembers(string movie_title)
         {
-            string members = "";
-            IMovie movie = Globals.movies.Search(movie_title);
-            if (movie==null){
-                Console.WriteLine("")
-            }
-            return members;
+            string members_list = "";
+            IMovie movie = Globals.allMovies.Search(movie_title);
+            //The movie is not registered in the system
+            if (movie==null) members_list = "The movie is not registered in the system, please check the title";
+            else members_list = movie.Borrowers.ToString();
+            return members_list;
         }
     }
