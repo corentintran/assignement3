@@ -1042,7 +1042,7 @@ namespace App
             bool backHome = false;
 
             while(!backHome){
-                StaffSystem staffSystem = new StaffSystem();
+                staffMenu staffMenu = new staffMenu();
                 Console.WriteLine("======================= Staff Menu =========================\n");
                 // Ask the user to choose an option.
                 Console.WriteLine("\t1. Add new DVDs of a movie to the system");
@@ -1058,24 +1058,24 @@ namespace App
                 {
                     case "1":
                         Console.WriteLine("Enter the title of the movie:");
-                        staffSystem.AddDVDs(Console.ReadLine());
+                        staffMenu.AddDVDs(Console.ReadLine());
                         break;
                     case "2":
                         Console.WriteLine("Enter the title of the movie:");
-                        staffSystem.RemoveDVDs(Console.ReadLine());
+                        staffMenu.RemoveDVDs(Console.ReadLine());
                         break;
                     case "3":
-                        staffSystem.RegisterNewMember();
+                        staffMenu.RegisterNewMember();
                         break;
                     case "4":
-                        staffSystem.RemoveMember();
+                        staffMenu.RemoveMember();
                         break;
                     case "5":
-                        Console.WriteLine("The contact number of the member is :" + staffSystem.DisplayPhoneNumber());
+                        Console.WriteLine("The contact number of the member is :" + staffMenu.DisplayPhoneNumber());
                         break;
                     case "6":
                         Console.WriteLine("Enter the title of the movie:");
-                        Console.WriteLine(staffSystem.DisplayMembers(Console.ReadLine()));
+                        Console.WriteLine(staffMenu.DisplayMembers(Console.ReadLine()));
                         break;
                     case "0":
                         backHome = true;
@@ -1115,7 +1115,7 @@ namespace App
         }
     }
 
-    class StaffSystem
+    class staffMenu
     {
         
         public void AddDVDs(string movie_title)
