@@ -68,20 +68,24 @@ public class Movie : IMovie
     //                  if the member is in the borrowers list, do not add the member to the borrowers list and return false.  
     public bool AddBorrower(IMember member)
     {
-        //To be completed 
-        if (availablecopies >= 1) {
-            if (!borrowers.Search(member)){
-            //the member was not in the borrowers list we had the member
+        //To be completed
+        if(availablecopies >= 1)
+        {
+            if(borrowers.Search(member) == false)
+            {
                 borrowers.Add(member);
                 availablecopies--;
-                noborrows++;
+                NoBorrowings++;
                 return true;
-            } else {
-            //the member is already in the borrowers list
-                return false;
             }
-        } else {
-            Console.WriteLine("no available copies");
+            else
+            {
+                Console.WriteLine("This member is already in this borrowing list.");
+                return false;
+            } 
+        }
+        else
+        {
             return false;
         }
     }
@@ -93,13 +97,19 @@ public class Movie : IMovie
     //                  otherwise, return false.
     public bool RemoveBorrower(IMember member)
     {
-        int totalBorrowers = borrowers.Number;
-        if (borrowers.Search(member)){
-        // the member is in the list
+        //To be completed
+        if (borrowers.Search(member) == true)
+        {
             borrowers.Delete(member);
-            availablecopies++;
+            AvailableCopies++;
             return true;
-        } else return false; //the member is not in the list
+        }
+        else
+        {
+            Console.WriteLine("This member does not exist in the borrower's list.");
+            return false;
+        }
+
     }
 
     //Define how to comapre two Movie objects
@@ -110,14 +120,21 @@ public class Movie : IMovie
     //                 return +1, if this movie's title is greater than another movie's title by dictionary order
     public int CompareTo(IMovie another)
     {
-        int compareTitles = title.CompareTo(another.Title);
-        if ( compareTitles < 0) {
+        //To be completed
+        Movie Movie1 = (Movie)another;
+        if (this.title.CompareTo(Movie1.title) < 0)
+        {
             return -1;
         }
-        else if (compareTitles == 0) {
+        else if(this.title.CompareTo(Movie1.title) == 0)
+        {
             return 0;
         }
-        else return 1;
+        else
+        {
+            return 1;
+        }
+        
     }
 
     //Return a string containing the title, genre, classification, duration, and the number of copies of this movie currently in the  library 
@@ -125,8 +142,9 @@ public class Movie : IMovie
     //Post-condition: A string containing the title, genre, classification, duration, and the number of available copies of this movie has been returned
     public string ToString()
     {
-        string s = title + "\n" + genre + "\n" + classification + "\n" + duration + "\n" + availablecopies + "\n";
-        return s;
+        //To be completed
+        return title + ", "  + genre + ", " + classification + ", " + duration + ", " + availablecopies; 
+
     }
 }
 
