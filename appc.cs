@@ -10,7 +10,7 @@ namespace App
             Globals.allMembers = new MemberCollection(100);
             Globals.allMovies = new MovieCollection();
             //Tests
-            Console.WriteLine(Globals.allMovies.Insert(new Movie("Superman Returns", MovieGenre.Action, MovieClassification.M, 120, 2)));
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("Superman Returns", MovieGenre.Action, MovieClassification.M, 120, 1)));
             Console.WriteLine(Globals.allMovies.Insert(new Movie("A", MovieGenre.Comedy, MovieClassification.PG, 100, 3)));
             Console.WriteLine(Globals.allMovies.Insert(new Movie("B")));
             Console.WriteLine(Globals.allMovies.Insert(new Movie("C")));
@@ -32,7 +32,7 @@ namespace App
                 Console.Write("Enter your choice ==> (1/2/0)\n");
 
 
-                // Use a switch statement to choose wich menu.
+                // Use a switch statement to choose which menu.
                 switch (Console.ReadLine())
                 {
                     case "1":
@@ -94,8 +94,8 @@ namespace App
             Console.WriteLine("Enter your password:");
             password = Console.ReadLine();
 
-            // TODO : check is user is in the member collection
-
+            // TODO : check if user is in the member collection
+            Globals.currentUser = new Member(firstname, lastname);
             return true;
         }
 
@@ -157,6 +157,7 @@ namespace App
 
             while (!backHome)
             {
+                Console.Clear();
                 MemberMenu memberMenu = new MemberMenu();
                 Console.WriteLine("======================= Member Menu =========================\n");
                 // Ask the user to choose an option.
@@ -173,22 +174,48 @@ namespace App
                 {
                     case "1":
                         Console.Clear();
-                        Console.WriteLine("Listing all movies");
+                        Console.WriteLine("Listing all movies in the library\n");
                         memberMenu.DisplayAllMovies();
-                        Console.WriteLine("Press a key to return to the previous screen.");
+                        Console.WriteLine("\nPress a key to return to the previous screen.");
                         Console.ReadLine();
                         Console.Clear();
                         break;
                     case "2":
-
+                        Console.Clear();
+                        Console.WriteLine("Enter the title of the movie.\n");
+                        string neededTitle = Console.ReadLine();
+                        Console.Clear();
+                        Console.WriteLine("Movie Information\n");
+                        memberMenu.DisplayInfo(neededTitle);
+                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "3":
+                        Console.Clear();
+                        Console.WriteLine("Enter the title of the movie you wish to borrow.\n");
+                        memberMenu.BorrowDVD(Console.ReadLine(), Globals.currentUser);
+                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "4":
+                        Console.Clear();
+                        Console.WriteLine("Enter the title of the movie you wish to return.\n");
+                        memberMenu.ReturnDVD(Console.ReadLine(), Globals.currentUser);
+                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "5":
+                        break;
                     case "6":
+                        break;
                     case "0":
                         backHome = true;
                         break;
                 }
+                
             }
         }
     }

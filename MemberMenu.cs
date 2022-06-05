@@ -15,21 +15,48 @@ class MemberMenu
     {
         string movieinfos = "";
         //TODO
-
-
+        IMovie movie = Globals.allMovies.Search(movietitle);
+        if(movie != null)
+        {
+            Console.WriteLine(movie.ToString());
+        }
+        else
+        {
+            Console.WriteLine("There is currently no movie of that name in the library.");
+        }
         return movieinfos;
     }
 
-    public bool BorrowDVD()
+    public bool BorrowDVD(string movietitle, IMember borrower)
     {
         //TODO
-        return true;
+        IMovie movie = Globals.allMovies.Search(movietitle);
+        if(movie != null && borrower != null)
+        {
+            movie.AddBorrower(borrower);
+            Console.WriteLine("Movie Borrowed.");
+            return true;
+        }
+        else
+        {
+            return false;
+        }  
     }
 
-    public bool ReturnDVD()
+    public bool ReturnDVD(string movietitle, IMember borrower)
     {
         //TODO
-        return true;
+        IMovie movie = Globals.allMovies.Search(movietitle);
+        if (movie != null && borrower != null)
+        {
+            movie.RemoveBorrower(borrower);
+            Console.WriteLine("Movie Returned.");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public string ListMoviesBorrowed()
