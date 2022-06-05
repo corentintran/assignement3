@@ -160,7 +160,8 @@ namespace App
                 Console.WriteLine("\t6. Display the top 3 movies rented by the members");
                 Console.WriteLine("\t0. Return to the main menu\n");
                 Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
-                /*switch (Console.ReadLine())
+
+                switch (Console.ReadLine())
                 {
                     case "1":
                     case "2":
@@ -169,7 +170,9 @@ namespace App
                     case "5":
                     case "6":
                     case "0":
-                }*/
+                        backHome=true;
+                        break;
+                }
             }
         }
     }
