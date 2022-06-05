@@ -63,7 +63,7 @@ public interface IMemberCollection
     // Pre-condition: nil
     // Post-condition: return the reference of the member object in the member collection, if this
     // member is in the member collection; return null otherwise; member collection remains unchanged
-    public IMember Find(IMember member)
+    public IMember Find(IMember member);
 
 
 }

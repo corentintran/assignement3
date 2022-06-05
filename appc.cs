@@ -1,13 +1,13 @@
 using System;
 
-namespace App
+namespace CAB301_Assignment3
 {
     static class Globals
     {
-        public static IMemberCollection allMembers; 
+        public static IMemberCollection allMembers;
         public static IMovieCollection allMovies;
     }
-    
+
     class App
     {
         static void Main(string[] args)
@@ -17,7 +17,7 @@ namespace App
             Globals.allMovies = new MovieCollection();
             bool endApp = false;
 
-            while(!endApp)
+            while (!endApp)
             {
                 Console.WriteLine("==============================================================");
                 Console.WriteLine("Welcolme to community Librart Movie DVD Management System");
@@ -69,7 +69,8 @@ namespace App
             password = Console.ReadLine();
 
             if (username == "staff" && password == "today123") return true;
-            else {
+            else
+            {
                 Console.WriteLine("The username or password are incorrect\n");
                 return false;
             }
@@ -103,7 +104,8 @@ namespace App
 
             bool backHome = false;
 
-            while(!backHome){
+            while (!backHome)
+            {
                 StaffMenu staffMenu = new StaffMenu();
                 Console.WriteLine("======================= Staff Menu =========================\n");
                 // Ask the user to choose an option.
@@ -115,7 +117,7 @@ namespace App
                 Console.WriteLine("\t6. Display all members who are currently renting a particular movie");
                 Console.WriteLine("\t0. Return to the main menu\n");
                 Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
-                
+
                 switch (Console.ReadLine())
                 {
                     case "1":
@@ -144,14 +146,15 @@ namespace App
                         break;
                 }
             }
-            
+
         }
 
         public static void DisplayMemberMenu()
         {
             bool backHome = false;
 
-            while(!backHome){
+            while (!backHome)
+            {
 
                 Console.WriteLine("======================= Member Menu =========================\n");
                 // Ask the user to choose an option.
@@ -176,3 +179,4 @@ namespace App
             }
         }
     }
+}
