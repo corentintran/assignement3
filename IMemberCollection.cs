@@ -59,7 +59,13 @@ public interface IMemberCollection
     // Post-condition: a string containing the information about all the members in this member collection is returned
     public string ToString();
 
-   
+    // Find a given member in this member collection
+    // Pre-condition: nil
+    // Post-condition: return the reference of the member object in the member collection, if this
+    // member is in the member collection; return null otherwise; member collection remains unchanged
+    public IMember Find(IMember member)
+
+
 }
 
 
