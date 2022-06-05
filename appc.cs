@@ -9,6 +9,12 @@ namespace App
 
             Globals.allMembers = new MemberCollection(100);
             Globals.allMovies = new MovieCollection();
+            //Tests
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("Superman Returns", MovieGenre.Action, MovieClassification.M, 120, 2)));
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("A", MovieGenre.Comedy, MovieClassification.PG, 100, 3)));
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("B")));
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("C")));
+           
             bool endApp = false;
 
             while (!endApp)
@@ -31,6 +37,7 @@ namespace App
                 {
                     case "1":
                         // Staff Menu
+                        Console.Clear();
                         if (StaffLogin()) DisplayStaffMenu();
                         break;
                     case "2":
@@ -41,6 +48,7 @@ namespace App
                         endApp = true;
                         break;
                 }
+                Console.Clear();
             }
             // Wait for the user to respond before closing.
             Console.WriteLine(" Press any key to close the app ...");
@@ -149,7 +157,7 @@ namespace App
 
             while (!backHome)
             {
-
+                MemberMenu memberMenu = new MemberMenu();
                 Console.WriteLine("======================= Member Menu =========================\n");
                 // Ask the user to choose an option.
                 Console.WriteLine("\t1. Browse all the movies");
@@ -164,13 +172,21 @@ namespace App
                 switch (Console.ReadLine())
                 {
                     case "1":
+                        Console.Clear();
+                        Console.WriteLine("Listing all movies");
+                        memberMenu.DisplayAllMovies();
+                        Console.WriteLine("Press a key to return to the previous screen.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "2":
+
                     case "3":
                     case "4":
                     case "5":
                     case "6":
                     case "0":
-                        backHome=true;
+                        backHome = true;
                         break;
                 }
             }

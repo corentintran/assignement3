@@ -1,17 +1,22 @@
 class MemberMenu
 {
-    public string DisplayAllMovies()
+    public void DisplayAllMovies()
     {
         string allmovies = "";
         //TODO
-
-        return allmovies;
+        foreach (IMovie movie in Globals.allMovies.ToArray())
+        {
+            Console.WriteLine(movie.ToString());
+        }
+        return;
     }
 
-    public string DisplayInfo()
+    public string DisplayInfo(string movietitle)
     {
         string movieinfos = "";
         //TODO
+
+
         return movieinfos;
     }
 
