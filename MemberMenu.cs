@@ -2,8 +2,6 @@ class MemberMenu
 {
     public void DisplayAllMovies()
     {
-        string allmovies = "";
-        //TODO
         foreach (IMovie movie in Globals.allMovies.ToArray())
         {
             Console.WriteLine(movie.ToString());
@@ -13,57 +11,53 @@ class MemberMenu
 
     public string DisplayInfo(string movietitle)
     {
-        string movieinfos = "";
-        //TODO
+        string movie_info = "";
+        IMovie movie = Globals.allMovies.Search(movietitle);
+        if(movie != null) movie_info = movie.ToString();
+        else movie_info = "There is currently no movie of that name in the library.";
+        return movie_info;
+    }
+
+    public bool BorrowDVD(string movietitle)
+    {
         IMovie movie = Globals.allMovies.Search(movietitle);
         if(movie != null)
         {
-            Console.WriteLine(movie.ToString());
-        }
-        else
-        {
-            Console.WriteLine("There is currently no movie of that name in the library.");
-        }
-        return movieinfos;
-    }
-
-    public bool BorrowDVD(string movietitle, IMember borrower)
-    {
-        //TODO
-        IMovie movie = Globals.allMovies.Search(movietitle);
-        if(movie != null && borrower != null)
-        {
-            movie.AddBorrower(borrower);
-            Console.WriteLine("Movie Borrowed.");
+            movie.AddBorrower(Globals.currentUser);
+            Globals.currentUser.Borrowings.Insert(movie);
             return true;
         }
         else
         {
+            Console.WriteLine("The movie is not in the collection, please check the title");
             return false;
         }  
     }
 
-    public bool ReturnDVD(string movietitle, IMember borrower)
+    public bool ReturnDVD(string movietitle)
     {
-        //TODO
         IMovie movie = Globals.allMovies.Search(movietitle);
-        if (movie != null && borrower != null)
+        if (movie != null)
         {
-            movie.RemoveBorrower(borrower);
-            Console.WriteLine("Movie Returned.");
+            movie.RemoveBorrower(Globals.currentUser);
+            Globals.currentUser.Borrowings.Delete(movie);
             return true;
         }
         else
         {
+            Console.WriteLine("The movie is not in the collection, please check the title");
             return false;
         }
     }
 
-    public string ListMoviesBorrowed()
+    public void ListMoviesBorrowed()
     {
-        string list = "";
-        //TODO
-        return list;
+        if (Globals.currentUser.Borrowings.IsEmpty()) Console.WriteLine("You don't have any movie on loan");
+        foreach (IMovie movie in Globals.currentUser.Borrowings.ToArray())
+        {
+            Console.WriteLine(movie.Title);
+        }
+        return;
     }
 
     public string DisplayTop3()

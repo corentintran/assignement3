@@ -96,8 +96,8 @@ namespace CAB301_Assignment3
             password = Console.ReadLine();
 
             IMember login = new Member(firstname, lastname);
-            Globals.currentUser = allMembers.Find(login);
-            if (currentUser==null) {
+            Globals.currentUser = Globals.allMembers.Find(login);
+            if (Globals.currentUser==null) {
                 Console.WriteLine("The username or password are incorrect\n");
                 return false;
             } else return true;
@@ -184,9 +184,8 @@ namespace CAB301_Assignment3
                         Console.Clear();
                         Console.WriteLine("Listing all movies in the library\n");
                         memberMenu.DisplayAllMovies();
-                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.WriteLine("\nPress a key to return to the member menu.");
                         Console.ReadLine();
-                        Console.Clear();
                         break;
                     case "2":
                         Console.Clear();
@@ -194,30 +193,35 @@ namespace CAB301_Assignment3
                         string neededTitle = Console.ReadLine();
                         Console.Clear();
                         Console.WriteLine("Movie Information\n");
-                        memberMenu.DisplayInfo(neededTitle);
-                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.WriteLine(memberMenu.DisplayInfo(neededTitle));
+                        Console.WriteLine("\nPress a key to return to the member menu.");
                         Console.ReadLine();
-                        Console.Clear();
                         break;
                     case "3":
                         Console.Clear();
                         Console.WriteLine("Enter the title of the movie you wish to borrow.\n");
-                        memberMenu.BorrowDVD(Console.ReadLine(), Globals.currentUser);
-                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        if (memberMenu.BorrowDVD(Console.ReadLine())) Console.WriteLine("Movie Borrowed.");
+                        Console.WriteLine("\nPress a key to return to the member menu.");
                         Console.ReadLine();
-                        Console.Clear();
                         break;
                     case "4":
                         Console.Clear();
                         Console.WriteLine("Enter the title of the movie you wish to return.\n");
-                        memberMenu.ReturnDVD(Console.ReadLine(), Globals.currentUser);
-                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        if (memberMenu.ReturnDVD(Console.ReadLine())) Console.WriteLine("Movie Returned.");
+                        Console.WriteLine("\nPress a key to return to the member menu.");
                         Console.ReadLine();
-                        Console.Clear();
                         break;
                     case "5":
+                        Console.Clear();
+                        memberMenu.ListMoviesBorrowed();
+                        Console.WriteLine("\nPress a key to return to the member menu.");
+                        Console.ReadLine();
                         break;
                     case "6":
+                        Console.Clear();
+                        Console.WriteLine(memberMenu.DisplayTop3());
+                        Console.WriteLine("\nPress a key to return to the member menu.");
+                        Console.ReadLine();
                         break;
                     case "0":
                         backHome = true;

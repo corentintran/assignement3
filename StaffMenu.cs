@@ -148,7 +148,10 @@ class StaffMenu
                 //remove the member from the memberCollection
                 Globals.allMembers.Delete(member_to_remove);
                 return true;
-            } else return false;
+            } else  {
+                Console.WriteLine("Impossible to remove member, he is currently renting a movie");
+                return false;
+            }
         }
             
     }
