@@ -2,11 +2,6 @@ using System;
 
 namespace CAB301_Assignment3
 {
-    static class Globals
-    {
-        public static IMemberCollection allMembers;
-        public static IMovieCollection allMovies;
-    }
 
     class App
     {
@@ -15,12 +10,18 @@ namespace CAB301_Assignment3
 
             Globals.allMembers = new MemberCollection(100);
             Globals.allMovies = new MovieCollection();
+            //Tests
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("Superman Returns", MovieGenre.Action, MovieClassification.M, 120, 1)));
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("A", MovieGenre.Comedy, MovieClassification.PG, 100, 3)));
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("B")));
+            Console.WriteLine(Globals.allMovies.Insert(new Movie("C")));
+           
             bool endApp = false;
 
             while (!endApp)
             {
                 Console.WriteLine("==============================================================");
-                Console.WriteLine("Welcolme to community Librart Movie DVD Management System");
+                Console.WriteLine("Welcome to the community Library Movie DVD Management System");
                 Console.WriteLine("==============================================================\n");
 
                 // Main Menu
@@ -32,11 +33,12 @@ namespace CAB301_Assignment3
                 Console.Write("Enter your choice ==> (1/2/0)\n");
 
 
-                // Use a switch statement to choose wich menu.
+                // Use a switch statement to choose which menu.
                 switch (Console.ReadLine())
                 {
                     case "1":
                         // Staff Menu
+                        Console.Clear();
                         if (StaffLogin()) DisplayStaffMenu();
                         break;
                     case "2":
@@ -47,6 +49,7 @@ namespace CAB301_Assignment3
                         endApp = true;
                         break;
                 }
+                Console.Clear();
             }
             // Wait for the user to respond before closing.
             Console.WriteLine(" Press any key to close the app ...");
@@ -92,8 +95,8 @@ namespace CAB301_Assignment3
             Console.WriteLine("Enter your password:");
             password = Console.ReadLine();
 
-            // TODO : check is user is in the member collection
-
+            // TODO : check if user is in the member collection
+            Globals.currentUser = new Member(firstname, lastname);
             return true;
         }
 
@@ -106,6 +109,7 @@ namespace CAB301_Assignment3
 
             while (!backHome)
             {
+                Console.Clear();
                 StaffMenu staffMenu = new StaffMenu();
                 Console.WriteLine("======================= Staff Menu =========================\n");
                 // Ask the user to choose an option.
@@ -156,6 +160,10 @@ namespace CAB301_Assignment3
             while (!backHome)
             {
 
+                Console.Clear();
+                MemberMenu memberMenu = new MemberMenu();
+
+
                 Console.WriteLine("======================= Member Menu =========================\n");
                 // Ask the user to choose an option.
                 Console.WriteLine("\t1. Browse all the movies");
@@ -166,16 +174,53 @@ namespace CAB301_Assignment3
                 Console.WriteLine("\t6. Display the top 3 movies rented by the members");
                 Console.WriteLine("\t0. Return to the main menu\n");
                 Console.Write("Enter your choice ==> (1/2/3/4/5/6/0)\n");
-                /*switch (Console.ReadLine())
+
+                switch (Console.ReadLine())
                 {
                     case "1":
+                        Console.Clear();
+                        Console.WriteLine("Listing all movies in the library\n");
+                        memberMenu.DisplayAllMovies();
+                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "2":
+                        Console.Clear();
+                        Console.WriteLine("Enter the title of the movie.\n");
+                        string neededTitle = Console.ReadLine();
+                        Console.Clear();
+                        Console.WriteLine("Movie Information\n");
+                        memberMenu.DisplayInfo(neededTitle);
+                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "3":
+                        Console.Clear();
+                        Console.WriteLine("Enter the title of the movie you wish to borrow.\n");
+                        memberMenu.BorrowDVD(Console.ReadLine(), Globals.currentUser);
+                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "4":
+                        Console.Clear();
+                        Console.WriteLine("Enter the title of the movie you wish to return.\n");
+                        memberMenu.ReturnDVD(Console.ReadLine(), Globals.currentUser);
+                        Console.WriteLine("\nPress a key to return to the previous screen.");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "5":
+                        break;
                     case "6":
+                        break;
                     case "0":
-                }*/
+                        backHome = true;
+                        break;
+                }
+                
             }
         }
     }

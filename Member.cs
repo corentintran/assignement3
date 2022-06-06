@@ -2,7 +2,7 @@
 //The implementation of Member ADT
 using System;
 
-public class Member : IMember
+class Member : IMember
 {
     // Fields
     private string firstName;
@@ -73,3 +73,5 @@ public class Member : IMember
         return lastName + ", " + firstName;
     }
 }
+
+

@@ -4,12 +4,12 @@ using System;
 using System.Linq;
 
 
-public class MemberCollection : IMemberCollection
+class MemberCollection : IMemberCollection
 {
     // Fields
     private int capacity;
     private int count;
-    private IMember[] members; //make sure members are sorted in dictionary order
+    private Member[] members; //make sure members are sorted in dictionary order
 
     // Properties
 
@@ -35,7 +35,7 @@ public class MemberCollection : IMemberCollection
         if (capacity > 0)
         {
             this.capacity = capacity;
-            members = new IMember[capacity];
+            members = new Member[capacity];
             count = 0;
         }
     }
@@ -62,46 +62,32 @@ public class MemberCollection : IMemberCollection
     // No duplicate will be added into this the member collection
     public void Add(IMember member)
     {
-        
-        if (IsFull()) Console.WriteLine("Cannot add member, list is full");
-
-        else if (IsEmpty()) {
-            count++;
-            members[0] = member;
-        }
-        
-        else {
-
-            bool memberAdded = false;
-            bool duplicate = false;
-            int i = 0;
-
-            while (i<count && !memberAdded) {
-
-                int compareMember = member.CompareTo(members[i]);
-                if  (compareMember < 0) { 
-                //member has to be placed before members[i]
-                    memberAdded = true; //we get out the while loop
-
-                } else if (compareMember == 0) { 
-                //the members are similar => duplicate
-                    i = count; //we get out the while loop
-                    duplicate = true;
-
-                } else i++;  
-                //member hast to be placed after members [i]
+        if(Search(member) == false)
+        {
+            // To be implemented by students in Phase 1
+            if (!IsFull())
+            {
+                members[count] = (Member)member;
+                count++;
             }
-            
-            if (duplicate) Console.WriteLine("the member is already in the list");
-            else { //the member position should be i
-                for (int j = count; j>i; j--) {
-                    members[j] = members[j-1];
+            // Sort List
+            for (int i = 0; i < count - 1; i++)
+            {
+                for (int d = 0; d < count - i - 1; d++)
+                {
+                    if (members[d].CompareTo(members[d + 1]) > 0)
+                    {
+                        Member temp = (Member)members[d];
+                        members[d] = members[d + 1];
+                        members[d + 1] = temp;
+                    }
                 }
-                members[i] = member; //the member is inserted in the right position
-                count++; // we update count
             }
-            
-        } 
+        }
+        else
+        {
+            Console.WriteLine("There is already a member with that name.");
+        }
         
     }
 
@@ -110,26 +96,41 @@ public class MemberCollection : IMemberCollection
     // Post-condition: the given member has been removed from this member collection, if the given meber was in the member collection
     public void Delete(IMember aMember)
     {
-        bool memberDeleted = false;
-
-        for (int i=0; i<count-1; i++) {
-            if (memberDeleted) members[i] = members[i+1];
-            else if (aMember.CompareTo(members[i]) == 0){
-                memberDeleted = true;
-                members[i] = members[i+1];
+    // To be implemented by students in Phase 1
+        //Find Member
+        if(Search(aMember) == true)
+        {
+            //Console.WriteLine("A");
+            for (int i = 0; i < members.Length; i++)
+            {
+                Member m = (Member)aMember;
+                //Console.WriteLine("B");
+                if (members[i].CompareTo(m) == 0)
+                {
+                    members[i] = members[count - 1];
+                    count--;
+                    break;
+                }
             }
         }
-        if (!memberDeleted ) {
-            if (aMember.CompareTo(members[count-1]) == 0){
-            // the case where the member to delete is the last one
-                memberDeleted = true;
-            } else Console.WriteLine("cannot delete member, the member is not in the collection");
-            // the member to delete is not in the member collection
+        else
+        {
+            Console.WriteLine("There is no one in the list with that name.");
         }
-        if (memberDeleted) {
-            members[count-1] = null;
-            count = count-1;
+        // Sort List
+        for (int i = 0; i < count - 1; i++)
+        {
+            for (int d = 0; d < count - i - 1; d++)
+            {
+                if (members[d].CompareTo(members[d + 1]) > 0)
+                {
+                    Member temp = (Member)members[d];
+                    members[d] = members[d + 1];
+                    members[d + 1] = temp;
+                }
+            }
         }
+
     }
 
     // Search a given member in this member collection 
@@ -137,31 +138,30 @@ public class MemberCollection : IMemberCollection
     // Post-condition: return true if this memeber is in the member collection; return false otherwise; member collection remains unchanged
     public bool Search(IMember member)
     {
-        if (IsEmpty()) return false;
-        
-        int start = 0;
-        int end = count-1;
+        // To be implemented by students in Phase 1
+        int low = 0;
+        int high = count - 1;
 
-        int m = (int) start + (end-start)/2;
-        while (start<end-1){
-            int compareMember = member.CompareTo(members[m]);
-            if ( compareMember == 0){
+        while (low <= high)
+        {
+            int mid = low + (high - low) / 2;
+
+            if (member.CompareTo(members[mid]) == 0)
+            {
                 return true;
             }
-            else {
-                if (compareMember< 0){
-                    end = m;
-                } else start = m;
-                m = (int) start + (end-start)/2;
+            else if (member.CompareTo(members[mid]) < 0)
+            {
+                high = mid - 1;
+            }
+            else if (member.CompareTo(members[mid]) > 0)
+            {
+                low = mid + 1;
             }
         }
-        //there are just 2 elements left, we test the 2 elements
-        if (member.CompareTo(members[start])==0) return true;
-        if (member.CompareTo(members[end])==0) return true;
         return false;
+        
     }
-
-    
 
     // Remove all the members in this member collection
     // Pre-condition: nil
