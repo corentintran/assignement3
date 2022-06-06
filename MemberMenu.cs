@@ -82,9 +82,7 @@ class MemberMenu
                     third = m;
                 }
             }
-            top3[0] = first;
-            top3[1] = second;
-            top3[2] = third;
+            top3 = {first, second, third};
             //Display title and frequency of borrowings
             Console.WriteLine("Top 3 movies :");
             foreach (IMovie m in top3){
