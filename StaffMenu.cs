@@ -138,6 +138,10 @@ class StaffMenu
         last_name = Console.ReadLine();
         IMember m = new Member(first_name, last_name);
         IMember member_to_remove = Globals.allMembers.Find(m);
+        if (member_to_remove == null) {
+            Console.WriteLine("The member is not registered");
+            return false;
+        } else {
 
             if (member_to_remove.Borrowings.IsEmpty())
             {
@@ -145,8 +149,8 @@ class StaffMenu
                 Globals.allMembers.Delete(member_to_remove);
                 return true;
             } else return false;
+        }
             
-        return true;
     }
 
 
@@ -163,7 +167,8 @@ class StaffMenu
         IMember temp = new Member(first_name, last_name);
         // Reference of
         IMember result = Globals.allMembers.Find(temp);
-        if (result != null) phonenumber = result.ContactNumber;
+        if (result != null) phonenumber = "The contact number of the member is :" + result.ContactNumber;
+        else phonenumber = "The member is not registered";
         return phonenumber;
     }
 

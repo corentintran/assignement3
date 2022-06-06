@@ -213,7 +213,7 @@ public class MemberCollection : IMemberCollection
         }
         //there are just 2 elements left, we test the 2 elements
         if (member.CompareTo(members[start])==0) return members[start];
-        if (member.CompareTo(members[end])==0) return member[end];
+        if (member.CompareTo(members[end])==0) return members[end];
         return null;
     }
 

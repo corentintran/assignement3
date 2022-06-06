@@ -135,7 +135,7 @@ namespace CAB301_Assignment3
                         if (staffMenu.RemoveMember()) Console.WriteLine("The member has been removed successfully!");
                         break;
                     case "5":
-                        Console.WriteLine("The contact number of the member is :" + staffMenu.DisplayPhoneNumber());
+                        Console.WriteLine(staffMenu.DisplayPhoneNumber());
                         break;
                     case "6":
                         Console.WriteLine("Enter the title of the movie:");

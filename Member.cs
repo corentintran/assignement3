@@ -17,7 +17,7 @@ public class Member : IMember
     public string LastName { get { return lastName; } set { lastName = value; } }  // Get and set the last name of this member
     public string ContactNumber { get { return contactNumber; } set { contactNumber = value; } }  // Get and set the contact number of this member
     public string Pin { get { return pin; } set { pin = value; } }// Get and set a pin number
-    public IMovieCollection Borrowings; { get { return borrowings; } set { borrowings = value; } }// Get and set the borrowing movies
+    public IMovieCollection Borrowings { get { return borrowings; } set { borrowings = value; } }// Get and set the borrowing movies
 
 
 
@@ -26,6 +26,7 @@ public class Member : IMember
     {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.borrowings = new MovieCollection();
     }
 
     // Constructor with member's full details
@@ -35,6 +36,7 @@ public class Member : IMember
         this.lastName = lastName;
         this.contactNumber = contactNumber;
         this.pin = pin;
+        this.borrowings = new MovieCollection();
     }
 
 
