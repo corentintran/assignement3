@@ -95,9 +95,12 @@ namespace CAB301_Assignment3
             Console.WriteLine("Enter your password:");
             password = Console.ReadLine();
 
-            // TODO : check if user is in the member collection
-            Globals.currentUser = new Member(firstname, lastname);
-            return true;
+            IMember login = new Member(firstname, lastname);
+            Globals.currentUser = allMembers.Find(login);
+            if (currentUser==null) {
+                Console.WriteLine("The username or password are incorrect\n");
+                return false;
+            } else return true;
         }
 
         /** Display the staff Menu
