@@ -219,7 +219,7 @@ namespace CAB301_Assignment3
                         break;
                     case "6":
                         Console.Clear();
-                        Console.WriteLine(memberMenu.DisplayTop3());
+                        memberMenu.DisplayTop3();
                         Console.WriteLine("\nPress a key to return to the member menu.");
                         Console.ReadLine();
                         break;

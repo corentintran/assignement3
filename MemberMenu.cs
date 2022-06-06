@@ -62,46 +62,38 @@ class MemberMenu
 
     public void DisplayTop3()
     {
-        /*
         IMovie[] top3 = new IMovie[3];
         IMovie[] movies_array = Globals.allMovies.ToArray();
-        Imovie first = 
-
-        //Basic case : no movie in the collection
-        int no_movies = movies_array.Length;
-        if (no_movies == 0) {
+        IMovie first, second, third = null;
+        //Basic case: no movie in the collection
+        if (movies_array.Length == 0) {
             Console.WriteLine("There is no movie registered in the collection");
         }
-        else if (no_movies == 1) {
-            
-            
-        }
-        else {
-
-
-        foreach (Imovie m in movies_array){
-            if (m.NoBorrowings > first.NoBorrowings){
-                third = second;
-                second = first;
-                first = m;
-            } else if (m.NoBorrowings > second.NoBorrowings){
-                third = second;
-                second = m;
-            } else if (m.NoBorrowings > third.NoBorrowings){
-                third = m;
+        else { 
+            foreach (IMovie m in movies_array){
+                if (first == null || m.NoBorrowings > first.NoBorrowings){
+                    third = second;
+                    second = first;
+                    first = m;
+                } else if (second == null || m.NoBorrowings > second.NoBorrowings){
+                    third = second;
+                    second = m;
+                } else if (third == null || m.NoBorrowings > third.NoBorrowings){
+                    third = m;
+                }
+            }
+            top3[0] = first;
+            top3[1] = second;
+            top3[2] = third;
+            //Display title and frequency of borrowings
+            Console.WriteLine("Top 3 movies :");
+            foreach (IMovie m in top3){
+                if (m!=null){
+                    Console.WriteLine(m.Title);
+                    Console.WriteLine("Borrowed " + m.NoBorrowings + " times\n");
+                }
             }
         }
-
-
-        top3[0] = first;
-        top3[1] = second;
-        top3[2] = third;
-        foreach (Imovie m in top3){
-            Console.WriteLine(movie.Title);
-            Console.WriteLine("Borrowed " + movie.NoBorrowings + " times");
-        }
-        }*/
-        return
+        return;
     }
-
 }
