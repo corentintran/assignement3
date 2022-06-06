@@ -1,7 +1,8 @@
 using System;
 
-namespace App
+namespace CAB301_Assignment3
 {
+
     class App
     {
         static void Main(string[] args)
@@ -108,6 +109,7 @@ namespace App
 
             while (!backHome)
             {
+                Console.Clear();
                 StaffMenu staffMenu = new StaffMenu();
                 Console.WriteLine("======================= Staff Menu =========================\n");
                 // Ask the user to choose an option.
@@ -137,7 +139,7 @@ namespace App
                         if (staffMenu.RemoveMember()) Console.WriteLine("The member has been removed successfully!");
                         break;
                     case "5":
-                        Console.WriteLine("The contact number of the member is :" + staffMenu.DisplayPhoneNumber());
+                        Console.WriteLine(staffMenu.DisplayPhoneNumber());
                         break;
                     case "6":
                         Console.WriteLine("Enter the title of the movie:");
@@ -157,8 +159,11 @@ namespace App
 
             while (!backHome)
             {
+
                 Console.Clear();
                 MemberMenu memberMenu = new MemberMenu();
+
+
                 Console.WriteLine("======================= Member Menu =========================\n");
                 // Ask the user to choose an option.
                 Console.WriteLine("\t1. Browse all the movies");

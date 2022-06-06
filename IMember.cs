@@ -37,6 +37,13 @@ public interface IMember
         get;
         set; //pin must be valid 
     }
+  
+  public IMovieCollection Borrowings 
+        {
+            get;
+            set; //pin must be valid 
+        }
+
 
     // Define how to comapre two member objects
     // This member's full name is compared to another member's full name 
@@ -45,6 +52,8 @@ public interface IMember
     //                 return 0, if this member's full name equals to another's full name in dictionary order
     //                 return +1, of this member's full name is greater than another's full name in dictionary order
     public int CompareTo(IMember member);
+
+        
 
 
     // Check if a contact phone number is valid. A contact phone number is valid if it has 10 digits and the first digit is 0.
