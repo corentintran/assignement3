@@ -60,11 +60,48 @@ class MemberMenu
         return;
     }
 
-    public string DisplayTop3()
+    public void DisplayTop3()
     {
-        string top3 = "";
-        //TODO
-        return top3;
+        /*
+        IMovie[] top3 = new IMovie[3];
+        IMovie[] movies_array = Globals.allMovies.ToArray();
+        Imovie first = 
+
+        //Basic case : no movie in the collection
+        int no_movies = movies_array.Length;
+        if (no_movies == 0) {
+            Console.WriteLine("There is no movie registered in the collection");
+        }
+        else if (no_movies == 1) {
+            
+            
+        }
+        else {
+
+
+        foreach (Imovie m in movies_array){
+            if (m.NoBorrowings > first.NoBorrowings){
+                third = second;
+                second = first;
+                first = m;
+            } else if (m.NoBorrowings > second.NoBorrowings){
+                third = second;
+                second = m;
+            } else if (m.NoBorrowings > third.NoBorrowings){
+                third = m;
+            }
+        }
+
+
+        top3[0] = first;
+        top3[1] = second;
+        top3[2] = third;
+        foreach (Imovie m in top3){
+            Console.WriteLine(movie.Title);
+            Console.WriteLine("Borrowed " + movie.NoBorrowings + " times");
+        }
+        }*/
+        return
     }
 
 }
