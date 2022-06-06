@@ -193,8 +193,28 @@ public class MemberCollection : IMemberCollection
     // member is in the member collection; return null otherwise; member collection remains unchanged
     public IMember Find(IMember member)
     {
-        if (Search(member) != false) return member;
-        else return null;
+        if (IsEmpty()) return null;
+        
+        int start = 0;
+        int end = count-1;
+
+        int m = (int) start + (end-start)/2;
+        while (start<end-1){
+            int compareMember = member.CompareTo(members[m]);
+            if ( compareMember == 0){
+                return members[m];
+            }
+            else {
+                if (compareMember< 0){
+                    end = m;
+                } else start = m;
+                m = (int) start + (end-start)/2;
+            }
+        }
+        //there are just 2 elements left, we test the 2 elements
+        if (member.CompareTo(members[start])==0) return members[start];
+        if (member.CompareTo(members[end])==0) return member[end];
+        return null;
     }
 
 

@@ -38,6 +38,12 @@ using System.Text;
             set; //pin must be valid 
         }
 
+        public IMovieCollection Borrowings 
+        {
+            get;
+            set; //pin must be valid 
+        }
+
         // Define how to comapre two member objects
         // This member's full name is compared to another member's full name 
         // Pre-condition: nil

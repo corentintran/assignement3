@@ -136,18 +136,16 @@ class StaffMenu
         first_name = Console.ReadLine();
         Console.WriteLine("Last name:");//fill last name
         last_name = Console.ReadLine();
-        IMember member_to_remove = new Member(first_name, last_name);
+        IMember m = new Member(first_name, last_name);
+        IMember member_to_remove = Globals.allMembers.Find(m);
 
-        /*     //TODO: implement a new property in Member class : a IMovieCollection named borrowedMovies,
-        //of the movies borrowed by the member
-
-            if (member_to_remove.BorrowedMovies.IsEmpty())
+            if (member_to_remove.Borrowings.IsEmpty())
             {
                 //remove the member from the memberCollection
                 Globals.allMembers.Delete(member_to_remove);
                 return true;
             } else return false;
-            */
+            
         return true;
     }
 
