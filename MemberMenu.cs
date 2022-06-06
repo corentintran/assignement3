@@ -1,3 +1,5 @@
+using System;
+
 class MemberMenu
 {
     public void DisplayAllMovies()
@@ -64,7 +66,7 @@ class MemberMenu
     {
         IMovie[] top3 = new IMovie[3];
         IMovie[] movies_array = Globals.allMovies.ToArray();
-        IMovie first, second, third = null;
+        IMovie first = null, second = null, third = null;
         //Basic case: no movie in the collection
         if (movies_array.Length == 0) {
             Console.WriteLine("There is no movie registered in the collection");
@@ -82,7 +84,7 @@ class MemberMenu
                     third = m;
                 }
             }
-            top3 = {first, second, third};
+            top3 = new IMovie[] { first, second, third };
             //Display title and frequency of borrowings
             Console.WriteLine("Top 3 movies :");
             foreach (IMovie m in top3){
