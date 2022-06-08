@@ -67,10 +67,18 @@ namespace CAB301_Assignment3
             Console.WriteLine("Enter your password:");
             password = Console.ReadLine();
 
-            if (username == "staff" && password == "today123") return true;
+            if (username == "staff" && password == "today123")
+            {
+                Console.WriteLine("Login success!\n");
+                Console.Write("Press enter to continue...");
+                Console.Read();
+                return true;
+            }
             else
             {
                 Console.WriteLine("The username or password are incorrect\n");
+                Console.Write("Press enter to continue...");
+                Console.Read();
                 return false;
             }
         }
@@ -93,10 +101,29 @@ namespace CAB301_Assignment3
 
             IMember login = new Member(firstname, lastname);
             Globals.currentUser = Globals.allMembers.Find(login);
-            if (Globals.currentUser==null) {
-                Console.WriteLine("The username or password are incorrect\n");
+            if (Globals.currentUser == null)
+            {
+                Console.WriteLine("Unregistered member, unavailable to login\n");
+                Console.Write("Press enter to continue...");
+                Console.Read();
                 return false;
-            } else return true;
+            }
+            else if (Globals.currentUser.Pin == password)
+            {
+                Console.WriteLine("Login success!\n");
+                Console.Write("Press enter to continue...");
+                Console.Read();
+                return true;
+            }
+            else
+            {
+                while (Globals.currentUser.Pin != password)
+                {
+                    Console.WriteLine("Incorrect Password, please try again");
+                    password = Console.ReadLine();
+                }
+                return true;
+            }
         }
 
         /** Display the staff Menu

@@ -187,7 +187,6 @@ class StaffMenu
             }
             else
             {
-                Console.WriteLine("Impossible to remove member, he is currently renting a movie");
                 Console.Write("Removal unsuccessful, member is currently borrowing: ");
                 foreach (IMovie movie in member_to_remove.Borrowings.ToArray()) Console.Write(movie.Title + " ");
                 Console.WriteLine();
