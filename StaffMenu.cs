@@ -11,7 +11,6 @@ class StaffMenu
             //Console output indicating the movie is already in the system and the total copies within the system.
             Console.WriteLine("The movie already exists in the system. Available copies: {1}, Total copies: {0}", movie_reference.TotalCopies, movie_reference.AvailableCopies);
             //Add the new DVDs
-            Console.WriteLine("How many DVDs do you want to add ?");
             Console.WriteLine("How many DVDs do you want to add?");
 
             int newDVDs = Convert.ToInt32(Console.ReadLine());
@@ -52,14 +51,18 @@ class StaffMenu
             new_movie.TotalCopies = newDVDs;
 
             //Add the new movie in the movie Collection
-            if (Globals.allMovies.Insert(new_movie)) Console.WriteLine("The movie has been added to the collection!");
             if (Globals.allMovies.Insert(new_movie))
             {
                 Console.WriteLine("The movie has been added to the collection! Available copies: {0}, Total Copies: {1}", new_movie.AvailableCopies, new_movie.TotalCopies);
                 Console.Write("Press enter to continue...");
                 Console.Read();
             }
-            else Console.WriteLine("The movie cannot be add to the collection, please try again");
+            else
+            {
+                Console.WriteLine("The movie cannot be added to the collection, please try again");
+                Console.Write("Press enter to continue...");
+                Console.Read();
+            }
 
 
         }
