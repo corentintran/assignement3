@@ -133,9 +133,13 @@ namespace CAB301_Assignment3
                         break;
                     case "3":
                         if (staffMenu.RegisterNewMember()) Console.WriteLine("The member has been registered successfully!");
+                        Console.WriteLine("Press enter to continue...");
+                        Console.ReadLine();
                         break;
                     case "4":
                         if (staffMenu.RemoveMember()) Console.WriteLine("The member has been removed successfully!");
+                        Console.WriteLine("Press enter to continue...");
+                        Console.ReadLine();
                         break;
                     case "5":
                         Console.WriteLine(staffMenu.DisplayPhoneNumber());
@@ -145,6 +149,8 @@ namespace CAB301_Assignment3
                     case "6":
                         Console.WriteLine("Enter the title of the movie:");
                         Console.WriteLine(staffMenu.DisplayMembers(Console.ReadLine()));
+                        Console.WriteLine("Press enter to continue...");
+                        Console.ReadLine();
                         break;
                     case "0":
                         backHome = true;
