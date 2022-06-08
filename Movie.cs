@@ -34,6 +34,8 @@ public class Movie : IMovie
     public Movie(string t)
     {
         title = t;
+        noborrows=0;
+        borrowers=new MemberCollection(10);
     }
 
     // get and set the tile of this movie
@@ -71,7 +73,7 @@ public class Movie : IMovie
         //To be completed
         if(availablecopies >= 1)
         {
-            if(borrowers.Search(member) == false)
+            if(!borrowers.Search(member))
             {
                 borrowers.Add(member);
                 availablecopies--;
