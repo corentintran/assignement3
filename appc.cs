@@ -9,12 +9,7 @@ namespace CAB301_Assignment3
         {
 
             Globals.allMembers = new MemberCollection(100);
-            Globals.allMovies = new MovieCollection();
-            //Tests
-            Console.WriteLine(Globals.allMovies.Insert(new Movie("Superman Returns", MovieGenre.Action, MovieClassification.M, 120, 1)));
-            Console.WriteLine(Globals.allMovies.Insert(new Movie("A", MovieGenre.Comedy, MovieClassification.PG, 100, 3)));
-            Console.WriteLine(Globals.allMovies.Insert(new Movie("B")));
-            Console.WriteLine(Globals.allMovies.Insert(new Movie("C")));
+            Globals.allMovies = new MovieCollection();           
            
             bool endApp = false;
 
