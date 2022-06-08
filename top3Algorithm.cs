@@ -65,7 +65,8 @@ public class Top3Algorithm
         }
         return array;
     }
-
+    // Program used to isnert dummy data to test algorithm
+    /*
     public static void Main(string[] args)
     {
         int[] array = {2,6,4,1,52,8,52,2,4,5,22,525,5,55,5,52,54};
@@ -119,5 +120,5 @@ public class Top3Algorithm
         FindTop3(RandomIntArray(100000000));
         FindTop3(RandomIntArray(100000000));
        
-    }
+    }*/
 }
