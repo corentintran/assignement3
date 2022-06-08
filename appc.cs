@@ -126,10 +126,12 @@ namespace CAB301_Assignment3
                     case "1":
                         Console.WriteLine("Enter the title of the movie:");
                         staffMenu.AddDVDs(Console.ReadLine());
+                        Console.ReadLine();
                         break;
                     case "2":
                         Console.WriteLine("Enter the title of the movie:");
                         staffMenu.RemoveDVDs(Console.ReadLine());
+                        Console.ReadLine();
                         break;
                     case "3":
                         if (staffMenu.RegisterNewMember()) Console.WriteLine("The member has been registered successfully!");
