@@ -9,8 +9,9 @@ namespace CAB301_Assignment3
         {
 
             Globals.allMembers = new MemberCollection(100);
-            Globals.allMovies = new MovieCollection();           
-           
+            Globals.allMovies = new MovieCollection();
+            
+
             bool endApp = false;
 
             while (!endApp)
@@ -138,6 +139,8 @@ namespace CAB301_Assignment3
                         break;
                     case "5":
                         Console.WriteLine(staffMenu.DisplayPhoneNumber());
+                        Console.WriteLine("Press enter to continue...");
+                        Console.ReadLine();
                         break;
                     case "6":
                         Console.WriteLine("Enter the title of the movie:");
